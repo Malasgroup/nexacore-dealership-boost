@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Check, ChevronRight, ArrowRight } from "lucide-react";
 import LeadForm from "@/components/LeadForm";
+// Import but don't use carousel components since we're using a different implementation
 import { 
   Carousel,
   CarouselContent,
