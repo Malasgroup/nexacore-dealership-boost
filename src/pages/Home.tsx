@@ -3,6 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Check, ChevronRight, ArrowRight } from "lucide-react";
 import LeadForm from "@/components/LeadForm";
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem
+} from "@/components/ui/carousel";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -12,11 +17,28 @@ const Home = () => {
     testimonials: false,
     cta: false
   });
+  
+  // Array of hero background images for the slider
+  const heroImages = [
+    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+  ];
+  
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const servicesRef = useRef<HTMLDivElement>(null);
   const benefitsRef = useRef<HTMLDivElement>(null);
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+
+  // Change slide every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -57,16 +79,33 @@ const Home = () => {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section with Slider */}
       <section 
-        className="relative min-h-screen flex items-center justify-center bg-black py-20"
-        style={{
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        className="relative min-h-screen flex items-center justify-center py-20"
       >
-        <div className="container mx-auto px-4 md:px-6">
+        {/* Background Slider */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden">
+          <Carousel className="w-full h-full" opts={{ loop: true }}>
+            <CarouselContent className="h-full">
+              {heroImages.map((image, index) => (
+                <CarouselItem key={index} className="h-full w-full">
+                  <div 
+                    className="h-full w-full bg-black"
+                    style={{
+                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${image}')`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      transition: "opacity 1s ease-in-out",
+                    }}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
+
+        {/* Hero Content */}
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-white space-y-6 animate-fade-in">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">

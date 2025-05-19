@@ -3,7 +3,11 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
-const Navbar = () => {
+interface NavbarProps {
+  useDarkLogo?: boolean;
+}
+
+const Navbar = ({ useDarkLogo = false }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -25,6 +29,13 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Determine which logo to use based on scroll state and useDarkLogo prop
+  const logoSrc = scrolled
+    ? "/lovable-uploads/53f9bd91-958d-4154-90a7-382533fa92e6.png" 
+    : useDarkLogo
+      ? "/lovable-uploads/53f9bd91-958d-4154-90a7-382533fa92e6.png"
+      : "/lovable-uploads/4e6fda5e-aa21-4876-a3a7-9dfac7188b5d.png";
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -36,9 +47,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         <NavLink to="/" className="flex items-center">
           <img 
-            src={scrolled 
-              ? "/lovable-uploads/53f9bd91-958d-4154-90a7-382533fa92e6.png" 
-              : "/lovable-uploads/4e6fda5e-aa21-4876-a3a7-9dfac7188b5d.png"}
+            src={logoSrc}
             alt="Nexacore Marketing" 
             className="h-12 w-auto"
           />
@@ -50,7 +59,7 @@ const Navbar = () => {
             to="/"
             className={({ isActive }) =>
               `text-lg font-medium hover:text-orange-500 transition duration-300 ${
-                isActive ? "text-orange-500" : scrolled ? "text-black" : "text-white"
+                isActive ? "text-orange-500" : scrolled || useDarkLogo ? "text-black" : "text-white"
               }`
             }
           >
@@ -60,7 +69,7 @@ const Navbar = () => {
             to="/about"
             className={({ isActive }) =>
               `text-lg font-medium hover:text-orange-500 transition duration-300 ${
-                isActive ? "text-orange-500" : scrolled ? "text-black" : "text-white"
+                isActive ? "text-orange-500" : scrolled || useDarkLogo ? "text-black" : "text-white"
               }`
             }
           >
@@ -70,7 +79,7 @@ const Navbar = () => {
             to="/contact"
             className={({ isActive }) =>
               `text-lg font-medium hover:text-orange-500 transition duration-300 ${
-                isActive ? "text-orange-500" : scrolled ? "text-black" : "text-white"
+                isActive ? "text-orange-500" : scrolled || useDarkLogo ? "text-black" : "text-white"
               }`
             }
           >
@@ -86,7 +95,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className={`md:hidden ${scrolled ? "text-black" : "text-white"} p-2`}
+          className={`md:hidden ${scrolled || useDarkLogo ? "text-black" : "text-white"} p-2`}
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
