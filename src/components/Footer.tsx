@@ -86,9 +86,9 @@ const Footer = () => {
               &copy; {currentYear} Nexacore Marketing Agency. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0 text-gray-500 text-sm">
-              <span>Privacy Policy</span>
+              <NavLink to="/privacy-policy" className="hover:text-orange-500 transition duration-300">Privacy Policy</NavLink>
               <span className="mx-2">|</span>
-              <span>Terms of Service</span>
+              <NavLink to="/terms-of-service" className="hover:text-orange-500 transition duration-300">Terms of Service</NavLink>
             </div>
           </div>
         </div>

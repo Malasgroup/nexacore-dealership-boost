@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -188,7 +189,7 @@ const ContactForm = () => {
         </button>
 
         <p className="text-xs text-gray-500">
-          By submitting this form, you agree to our Privacy Policy and Terms of Service.
+          By submitting this form, you agree to our <Link to="/privacy-policy" className="text-orange-500 hover:underline">Privacy Policy</Link> and <Link to="/terms-of-service" className="text-orange-500 hover:underline">Terms of Service</Link>.
         </p>
       </div>
     </form>

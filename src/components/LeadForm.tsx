@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const LeadForm = () => {
   const { toast } = useToast();
@@ -160,7 +161,7 @@ const LeadForm = () => {
         </button>
 
         <p className="text-xs text-gray-500 mt-4">
-          By submitting this form, you agree to our Privacy Policy and Terms of Service.
+          By submitting this form, you agree to our <Link to="/privacy-policy" className="text-orange-500 hover:underline">Privacy Policy</Link> and <Link to="/terms-of-service" className="text-orange-500 hover:underline">Terms of Service</Link>.
           Your information will be used to contact you about our services.
         </p>
       </div>
