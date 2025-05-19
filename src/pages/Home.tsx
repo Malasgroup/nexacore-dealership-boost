@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Check, ChevronRight, ArrowRight } from "lucide-react";
@@ -18,11 +17,11 @@ const Home = () => {
     cta: false
   });
   
-  // Array of hero background images for the slider
+  // Array of hero background images for the slider with more reliable image URLs
   const heroImages = [
-    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+    "https://images.unsplash.com/photo-1560179707-f14e90ef3623?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80", // Dealership exterior
+    "https://images.unsplash.com/photo-1581092160607-57e76cbb7e7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80", // Marketing meeting
+    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"  // Car closeup
   ];
   
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -85,23 +84,19 @@ const Home = () => {
       >
         {/* Background Slider */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
-          <Carousel className="w-full h-full" opts={{ loop: true }}>
-            <CarouselContent className="h-full">
-              {heroImages.map((image, index) => (
-                <CarouselItem key={index} className="h-full w-full">
-                  <div 
-                    className="h-full w-full bg-black"
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${image}')`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      transition: "opacity 1s ease-in-out",
-                    }}
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
+          {heroImages.map((image, index) => (
+            <div 
+              key={index}
+              className="absolute inset-0 w-full h-full transition-opacity duration-1000"
+              style={{
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${image}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                opacity: currentSlide === index ? 1 : 0,
+                zIndex: currentSlide === index ? 1 : 0,
+              }}
+            />
+          ))}
         </div>
 
         {/* Hero Content */}
